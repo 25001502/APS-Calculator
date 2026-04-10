@@ -31,4 +31,24 @@
   The repository includes [vercel.json](vercel.json) to ensure SPA route rewrites (for example /matches or /university/3) correctly resolve to index.html.
 
   Deploy with Vercel CLI or by importing this repository into Vercel.
+
+  ### Firebase Hosting
+
+  This project is configured for Firebase Hosting with SPA rewrites to support routes like /matches and /university/3.
+
+  1. Log in to Firebase CLI:
+
+    npx firebase-tools login
+
+  2. Link your Firebase project (first time only):
+
+    npx firebase-tools use --add
+
+  3. Deploy hosting:
+
+    npm run deploy:firebase
+
+  For preview channels:
+
+    npm run deploy:firebase:preview
   

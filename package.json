@@ -6,7 +6,11 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "firebase:login": "npx firebase-tools login",
+    "firebase:use": "npx firebase-tools use --add",
+    "deploy:firebase": "npm run build && npx firebase-tools deploy --only hosting",
+    "deploy:firebase:preview": "npm run build && npx firebase-tools hosting:channel:deploy preview"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
