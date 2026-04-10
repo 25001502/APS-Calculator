@@ -5,6 +5,7 @@ import { School, MapPin, Trash2, BookmarkX } from "lucide-react";
 import { Card } from "../components/Card";
 import { Badge } from "../components/Badge";
 import { BottomNav } from "../components/BottomNav";
+import { parseStoredInt, parseStoredJSON } from "../utils/storage";
 
 const universities = [
   { id: 1, name: "University of Cape Town", location: "Western Cape", minAPS: 35, maxAPS: 42, note: "Best fit" },
@@ -21,15 +22,8 @@ export function SavedOpportunities() {
   const [userAPS, setUserAPS] = useState<number>(0);
 
   useEffect(() => {
-    const saved = localStorage.getItem("savedUniversities");
-    if (saved) {
-      setSavedUniversities(JSON.parse(saved));
-    }
-
-    const aps = localStorage.getItem("userAPS");
-    if (aps) {
-      setUserAPS(parseInt(aps));
-    }
+    setSavedUniversities(parseStoredJSON<number[]>(localStorage.getItem("savedUniversities"), []));
+    setUserAPS(parseStoredInt(localStorage.getItem("userAPS"), 0));
   }, []);
 
   const removeSaved = (id: number) => {
@@ -47,7 +41,7 @@ export function SavedOpportunities() {
   };
 
   return (
-    <div className="min-h-screen pb-24">
+    <div className="min-h-screen pb-24 md:pt-20 md:pb-10">
       <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8">
         <h1 className="text-3xl mb-2">Saved Opportunities</h1>
         <p className="text-white/80">
@@ -103,6 +97,7 @@ export function SavedOpportunities() {
                               removeSaved(uni.id);
                             }}
                             className="p-2 hover:bg-destructive/10 text-destructive rounded-lg transition-colors"
+                            aria-label={`Remove ${uni.name} from saved universities`}
                           >
                             <Trash2 size={18} />
                           </button>

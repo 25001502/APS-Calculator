@@ -85,7 +85,7 @@ export function APSInput() {
     <div className="min-h-screen pb-8">
       <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8">
         <div className="flex items-center gap-4 mb-6">
-          <button onClick={() => navigate("/home")} className="hover:opacity-70">
+          <button onClick={() => navigate("/home")} className="hover:opacity-70" aria-label="Go to home">
             <ArrowLeft size={24} />
           </button>
           <div>
@@ -122,10 +122,12 @@ export function APSInput() {
                 <div className="flex items-start gap-3">
                   <div className="flex-1 space-y-3">
                     <div>
-                      <label className="block text-sm mb-2 text-foreground/80">
+                      <label htmlFor={`subject-${subject.id}`} className="block text-sm mb-2 text-foreground/80">
                         Subject {index + 1}
                       </label>
                       <select
+                        id={`subject-${subject.id}`}
+                        aria-label={`Select subject ${index + 1}`}
                         value={subject.name}
                         onChange={(e) => updateSubject(subject.id, "name", e.target.value)}
                         className="w-full px-4 py-3 rounded-xl bg-input-background border border-border focus:outline-none focus:ring-2 focus:ring-primary/50"
@@ -163,6 +165,7 @@ export function APSInput() {
                     <button
                       onClick={() => removeSubject(subject.id)}
                       className="mt-8 p-2 hover:bg-destructive/10 text-destructive rounded-lg transition-colors"
+                      aria-label={`Remove subject ${index + 1}`}
                     >
                       <Trash2 size={20} />
                     </button>

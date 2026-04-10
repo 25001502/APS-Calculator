@@ -6,6 +6,7 @@ import { Card } from "../components/Card";
 import { Badge } from "../components/Badge";
 import { Button } from "../components/Button";
 import { BottomNav } from "../components/BottomNav";
+import { parseStoredInt, parseStoredJSON } from "../utils/storage";
 
 const universities = [
   {
@@ -89,15 +90,8 @@ export function UniversityMatches() {
   const [selectedProvince, setSelectedProvince] = useState<string>("All");
 
   useEffect(() => {
-    const stored = localStorage.getItem("userAPS");
-    if (stored) {
-      setUserAPS(parseInt(stored));
-    }
-
-    const saved = localStorage.getItem("savedUniversities");
-    if (saved) {
-      setSavedUniversities(JSON.parse(saved));
-    }
+    setUserAPS(parseStoredInt(localStorage.getItem("userAPS"), 0));
+    setSavedUniversities(parseStoredJSON<number[]>(localStorage.getItem("savedUniversities"), []));
   }, []);
 
   const getMatchStatus = (minAPS: number, maxAPS: number) => {
@@ -125,10 +119,10 @@ export function UniversityMatches() {
     .sort((a, b) => b.match.score - a.match.score);
 
   return (
-    <div className="min-h-screen pb-24">
-      <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8 sticky top-0 z-10">
+    <div className="min-h-screen pb-24 md:pt-20 md:pb-10">
+      <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8 sticky top-0 z-10 md:top-16">
         <div className="flex items-center gap-4 mb-6">
-          <button onClick={() => navigate("/home")} className="hover:opacity-70">
+          <button onClick={() => navigate("/home")} className="hover:opacity-70" aria-label="Go to home">
             <ArrowLeft size={24} />
           </button>
           <div className="flex-1">

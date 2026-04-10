@@ -30,17 +30,17 @@ const quickActions = [
 ];
 
 const featuredUniversities = [
-  { name: "University of Cape Town", aps: "35-42", province: "Western Cape" },
-  { name: "University of Pretoria", aps: "28-38", province: "Gauteng" },
-  { name: "Stellenbosch University", aps: "32-40", province: "Western Cape" },
-  { name: "University of Witwatersrand", aps: "30-40", province: "Gauteng" },
+  { id: 1, name: "University of Cape Town", aps: "35-42", province: "Western Cape" },
+  { id: 2, name: "University of Pretoria", aps: "28-38", province: "Gauteng" },
+  { id: 3, name: "Stellenbosch University", aps: "32-40", province: "Western Cape" },
+  { id: 4, name: "University of Witwatersrand", aps: "30-40", province: "Gauteng" },
 ];
 
 export function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen pb-24">
+    <div className="min-h-screen pb-24 md:pt-20 md:pb-10">
       <div className="bg-gradient-to-br from-primary via-primary/95 to-secondary/80 text-white px-6 pt-12 pb-8 rounded-b-3xl">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -143,7 +143,7 @@ export function Home() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.7 + index * 0.1 }}
               >
-                <Card hover onClick={() => navigate(`/university/${index}`)}>
+                <Card hover onClick={() => navigate(`/university/${uni.id}`)}>
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center flex-shrink-0">
                       <School size={24} className="text-white" />

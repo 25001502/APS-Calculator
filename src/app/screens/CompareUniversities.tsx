@@ -32,10 +32,10 @@ export function CompareUniversities() {
   };
 
   return (
-    <div className="min-h-screen pb-24">
-      <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8 sticky top-0 z-10">
+    <div className="min-h-screen pb-24 md:pt-20 md:pb-10">
+      <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8 sticky top-0 z-10 md:top-16">
         <div className="flex items-center gap-4">
-          <button onClick={() => navigate("/home")} className="hover:opacity-70">
+          <button onClick={() => navigate("/home")} className="hover:opacity-70" aria-label="Go to home">
             <ArrowLeft size={24} />
           </button>
           <h1 className="text-3xl">Compare Universities</h1>
@@ -74,6 +74,7 @@ export function CompareUniversities() {
                 <button
                   onClick={() => setShowSelector(false)}
                   className="p-2 hover:bg-muted rounded-lg"
+                  aria-label="Close university selector"
                 >
                   <X size={20} />
                 </button>

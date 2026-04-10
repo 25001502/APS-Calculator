@@ -6,28 +6,25 @@ import { Card } from "../components/Card";
 import { Badge } from "../components/Badge";
 import { Button } from "../components/Button";
 import { BottomNav } from "../components/BottomNav";
+import { parseStoredInt, parseStoredJSON } from "../utils/storage";
+
+interface APSSubject {
+  name: string;
+  mark: number;
+  points: number;
+}
 
 export function Profile() {
   const navigate = useNavigate();
   const [userAPS, setUserAPS] = useState<number | null>(null);
   const [savedCount, setSavedCount] = useState(0);
-  const [apsData, setApsData] = useState<any[]>([]);
+  const [apsData, setApsData] = useState<APSSubject[]>([]);
 
   useEffect(() => {
-    const aps = localStorage.getItem("userAPS");
-    if (aps) {
-      setUserAPS(parseInt(aps));
-    }
-
-    const data = localStorage.getItem("apsData");
-    if (data) {
-      setApsData(JSON.parse(data));
-    }
-
-    const saved = localStorage.getItem("savedUniversities");
-    if (saved) {
-      setSavedCount(JSON.parse(saved).length);
-    }
+    const aps = parseStoredInt(localStorage.getItem("userAPS"), -1);
+    setUserAPS(aps >= 0 ? aps : null);
+    setApsData(parseStoredJSON<APSSubject[]>(localStorage.getItem("apsData"), []));
+    setSavedCount(parseStoredJSON<number[]>(localStorage.getItem("savedUniversities"), []).length);
   }, []);
 
   const getScoreLevel = (score: number | null) => {
@@ -39,7 +36,7 @@ export function Profile() {
   };
 
   return (
-    <div className="min-h-screen pb-24">
+    <div className="min-h-screen pb-24 md:pt-20 md:pb-10">
       <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8">
         <div className="flex items-center gap-4 mb-6">
           <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">

@@ -5,6 +5,7 @@ import { ArrowLeft, Award, TrendingUp, School, CheckCircle2 } from "lucide-react
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { Badge } from "../components/Badge";
+import { parseStoredJSON } from "../utils/storage";
 
 interface APSData {
   name: string;
@@ -20,7 +21,13 @@ export function APSResult() {
   useEffect(() => {
     const stored = localStorage.getItem("apsData");
     if (stored) {
-      const data: APSData[] = JSON.parse(stored);
+      const data = parseStoredJSON<APSData[]>(stored, []);
+
+      if (data.length === 0) {
+        navigate("/calculate", { replace: true });
+        return;
+      }
+
       const sorted = data.sort((a, b) => b.points - a.points).slice(0, 6);
       setApsData(sorted);
       setTotalAPS(sorted.reduce((sum, s) => sum + s.points, 0));
@@ -49,7 +56,7 @@ export function APSResult() {
     <div className="min-h-screen pb-8">
       <div className="bg-gradient-to-br from-primary via-primary/95 to-secondary/80 text-white px-6 pt-12 pb-16">
         <div className="flex items-center gap-4 mb-8">
-          <button onClick={() => navigate("/home")} className="hover:opacity-70">
+          <button onClick={() => navigate("/home")} className="hover:opacity-70" aria-label="Go to home">
             <ArrowLeft size={24} />
           </button>
           <h1 className="text-2xl">Your APS Result</h1>

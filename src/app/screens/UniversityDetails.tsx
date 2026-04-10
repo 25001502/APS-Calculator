@@ -5,8 +5,26 @@ import { ArrowLeft, MapPin, GraduationCap, ExternalLink, Bookmark, BookmarkCheck
 import { Card } from "../components/Card";
 import { Badge } from "../components/Badge";
 import { Button } from "../components/Button";
+import { parseStoredInt, parseStoredJSON } from "../utils/storage";
 
-const universityData: Record<string, any> = {
+interface Faculty {
+  name: string;
+  minAPS: number;
+  programs: string[];
+}
+
+interface UniversityDetail {
+  name: string;
+  location: string;
+  minAPS: number;
+  maxAPS: number;
+  website: string;
+  overview: string;
+  faculties: Faculty[];
+  admissionNotes: string;
+}
+
+const universityData: Record<string, UniversityDetail> = {
   "1": {
     name: "University of Cape Town",
     location: "Cape Town, Western Cape",
@@ -67,6 +85,62 @@ const universityData: Record<string, any> = {
     ],
     admissionNotes: "Located in the heart of Johannesburg. Strong alumni network. Excellent research facilities.",
   },
+  "5": {
+    name: "Rhodes University",
+    location: "Makhanda, Eastern Cape",
+    minAPS: 26,
+    maxAPS: 35,
+    website: "https://www.ru.ac.za",
+    overview: "Rhodes University is known for strong humanities and science programs, smaller class sizes, and a close-knit campus community.",
+    faculties: [
+      { name: "Faculty of Humanities", minAPS: 26, programs: ["Journalism", "English", "Psychology"] },
+      { name: "Faculty of Science", minAPS: 28, programs: ["Biotechnology", "Computer Science", "Mathematics"] },
+      { name: "Faculty of Pharmacy", minAPS: 32, programs: ["Bachelor of Pharmacy (BPharm)"] },
+    ],
+    admissionNotes: "Small-campus experience with focused academic support. Program requirements can differ by department.",
+  },
+  "6": {
+    name: "University of Johannesburg",
+    location: "Johannesburg, Gauteng",
+    minAPS: 24,
+    maxAPS: 36,
+    website: "https://www.uj.ac.za",
+    overview: "UJ offers a broad set of career-oriented programs across multiple campuses with strong links to industry and innovation hubs.",
+    faculties: [
+      { name: "Faculty of Engineering and the Built Environment", minAPS: 30, programs: ["Civil Engineering", "Electrical Engineering", "Architecture"] },
+      { name: "Faculty of Art, Design and Architecture", minAPS: 26, programs: ["Communication Design", "Fashion Design", "Fine Arts"] },
+      { name: "Faculty of Education", minAPS: 24, programs: ["BEd Foundation Phase", "BEd Intermediate Phase"] },
+    ],
+    admissionNotes: "Urban multi-campus university with practical, employability-focused programs.",
+  },
+  "7": {
+    name: "University of KwaZulu-Natal",
+    location: "Durban, KwaZulu-Natal",
+    minAPS: 26,
+    maxAPS: 38,
+    website: "https://www.ukzn.ac.za",
+    overview: "UKZN is a research-intensive university with strengths in health sciences, agriculture, engineering, and social sciences.",
+    faculties: [
+      { name: "College of Health Sciences", minAPS: 35, programs: ["Medicine", "Nursing", "Physiotherapy"] },
+      { name: "College of Agriculture, Engineering and Science", minAPS: 30, programs: ["Agricultural Science", "Chemical Engineering", "Environmental Science"] },
+      { name: "College of Humanities", minAPS: 26, programs: ["Social Work", "Public Policy", "Psychology"] },
+    ],
+    admissionNotes: "Multiple campuses across KwaZulu-Natal. Admission scoring may vary by campus and program stream.",
+  },
+  "8": {
+    name: "North-West University",
+    location: "Potchefstroom, North West",
+    minAPS: 22,
+    maxAPS: 32,
+    website: "https://www.nwu.ac.za",
+    overview: "NWU provides broad undergraduate access with strong support systems, especially in education, commerce, law, and natural sciences.",
+    faculties: [
+      { name: "Faculty of Education", minAPS: 22, programs: ["BEd Senior Phase", "BEd FET Phase", "Educational Psychology"] },
+      { name: "Faculty of Economic and Management Sciences", minAPS: 24, programs: ["BCom Accounting", "Economics", "Business Management"] },
+      { name: "Faculty of Law", minAPS: 26, programs: ["BA Law", "LLB"] },
+    ],
+    admissionNotes: "Multiple campuses and pathways. Check faculty pages for minimum language and subject requirements.",
+  },
 };
 
 export function UniversityDetails() {
@@ -74,27 +148,30 @@ export function UniversityDetails() {
   const navigate = useNavigate();
   const [userAPS, setUserAPS] = useState<number>(0);
   const [savedUniversities, setSavedUniversities] = useState<number[]>([]);
+  const universityId = Number.parseInt(id ?? "", 10);
+  const university = Number.isNaN(universityId) ? undefined : universityData[universityId.toString()];
 
   useEffect(() => {
-    const stored = localStorage.getItem("userAPS");
-    if (stored) {
-      setUserAPS(parseInt(stored));
-    }
-
-    const saved = localStorage.getItem("savedUniversities");
-    if (saved) {
-      setSavedUniversities(JSON.parse(saved));
-    }
+    setUserAPS(parseStoredInt(localStorage.getItem("userAPS"), 0));
+    setSavedUniversities(parseStoredJSON<number[]>(localStorage.getItem("savedUniversities"), []));
   }, []);
 
-  const university = universityData[id || "1"] || universityData["1"];
-  const isSaved = savedUniversities.includes(parseInt(id || "1"));
+  useEffect(() => {
+    if (!university) {
+      navigate("/matches", { replace: true });
+    }
+  }, [navigate, university]);
+
+  if (!university || Number.isNaN(universityId)) {
+    return null;
+  }
+
+  const isSaved = savedUniversities.includes(universityId);
 
   const toggleSave = () => {
-    const uniId = parseInt(id || "1");
     const updated = isSaved
-      ? savedUniversities.filter((uId) => uId !== uniId)
-      : [...savedUniversities, uniId];
+      ? savedUniversities.filter((uId) => uId !== universityId)
+      : [...savedUniversities, universityId];
 
     setSavedUniversities(updated);
     localStorage.setItem("savedUniversities", JSON.stringify(updated));
@@ -106,7 +183,7 @@ export function UniversityDetails() {
     <div className="min-h-screen pb-8">
       <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8">
         <div className="flex items-center gap-4 mb-6">
-          <button onClick={() => navigate(-1)} className="hover:opacity-70">
+          <button onClick={() => navigate(-1)} className="hover:opacity-70" aria-label="Go back">
             <ArrowLeft size={24} />
           </button>
           <div className="flex-1">
@@ -115,6 +192,7 @@ export function UniversityDetails() {
           <button
             onClick={toggleSave}
             className="p-2 hover:bg-white/10 rounded-xl transition-colors"
+            aria-label={isSaved ? "Remove university from saved" : "Save university"}
           >
             {isSaved ? (
               <BookmarkCheck size={24} className="fill-white" />
@@ -178,7 +256,7 @@ export function UniversityDetails() {
         >
           <h2 className="text-xl mb-4">Faculties & Programs</h2>
           <div className="space-y-4">
-            {university.faculties.map((faculty: any, index: number) => {
+            {university.faculties.map((faculty, index) => {
               const canQualify = userAPS >= faculty.minAPS;
 
               return (
