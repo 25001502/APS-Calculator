@@ -20,9 +20,14 @@ export function Welcome() {
           transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
           className="mb-8 relative"
         >
-          <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-            <GraduationCap size={64} strokeWidth={2} />
-          </div>
+            <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center backdrop-blur-sm overflow-hidden">
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/my-univen-project.firebasestorage.app/o/ChatGPT%20Image%20Feb%2016%2C%202026%2C%2010_40_33%20AM.png?alt=media&token=99a62911-665e-4997-94cb-46f47f56d17e"
+              alt="Gradiate badge"
+              className="auth-badge__image w-50 h-50 mt-3 object-cover"
+              referrerPolicy="no-referrer"
+              />
+            </div>
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
