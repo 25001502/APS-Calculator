@@ -7,7 +7,7 @@ export function Welcome() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-primary via-primary/95 to-secondary/80 text-white p-6">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-primary via-primary/95 to-secondary/80 text-white p-6 md:p-16 md:justify-center">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -70,14 +70,14 @@ export function Welcome() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="w-full space-y-4"
+          className="w-full md:max-w-sm space-y-4"
         >
           <Button
             onClick={() => navigate("/onboarding")}
             variant="secondary"
             size="lg"
             fullWidth
-            className="shadow-xl"
+            className="shadow-xl !bg-success !text-white hover:!opacity-90"
           >
             Get Started
           </Button>
