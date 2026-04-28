@@ -54,7 +54,7 @@ export function APSResult() {
 
   return (
     <div className="min-h-screen pb-8">
-      <div className="bg-gradient-to-br from-primary via-primary/95 to-secondary/80 text-white px-6 pt-12 pb-16">
+      <div className="bg-gradient-to-br from-primary via-primary/95 to-secondary/80 text-white px-6 pt-12 pb-16 md:px-16">
         <div className="flex items-center gap-4 mb-8">
           <button onClick={() => navigate("/home")} className="hover:opacity-70" aria-label="Go to home">
             <ArrowLeft size={24} />
@@ -90,7 +90,7 @@ export function APSResult() {
         </motion.div>
       </div>
 
-      <div className="px-6 -mt-8">
+      <div className="px-6 -mt-8 md:max-w-2xl md:mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

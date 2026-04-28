@@ -41,7 +41,7 @@ export function Home() {
 
   return (
     <div className="min-h-screen pb-24 md:pt-20 md:pb-10">
-      <div className="bg-gradient-to-br from-primary via-primary/95 to-secondary/80 text-white px-6 pt-12 pb-8 rounded-b-3xl">
+      <div className="bg-gradient-to-br from-primary via-primary/95 to-secondary/80 text-white px-6 pt-12 pb-8 rounded-b-3xl md:px-16">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -67,7 +67,7 @@ export function Home() {
         </motion.div>
       </div>
 
-      <div className="px-6 -mt-6">
+      <div className="px-6 -mt-6 md:max-w-4xl md:mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -135,7 +135,7 @@ export function Home() {
             </button>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-3 md:space-y-0 md:grid md:grid-cols-2 md:gap-4">
             {featuredUniversities.map((uni, index) => (
               <motion.div
                 key={uni.name}

@@ -37,7 +37,7 @@ export function Profile() {
 
   return (
     <div className="min-h-screen pb-24 md:pt-20 md:pb-10">
-      <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8">
+      <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8 md:px-16">
         <div className="flex items-center gap-4 mb-6">
           <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
             <User size={40} />
@@ -63,7 +63,7 @@ export function Profile() {
         )}
       </div>
 
-      <div className="px-6 mt-6">
+      <div className="px-6 mt-6 md:max-w-4xl md:mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

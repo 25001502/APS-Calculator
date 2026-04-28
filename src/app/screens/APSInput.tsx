@@ -82,8 +82,8 @@ export function APSInput() {
   const canCalculate = subjects.filter((s) => s.name && s.mark && parseInt(s.mark) >= 0 && parseInt(s.mark) <= 100).length >= 6;
 
   return (
-    <div className="min-h-screen pb-8">
-      <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8">
+    <div className="min-h-screen pb-8 md:pt-10">
+      <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8 md:px-16">
         <div className="flex items-center gap-4 mb-6">
           <button onClick={() => navigate("/home")} className="hover:opacity-70" aria-label="Go to home">
             <ArrowLeft size={24} />
@@ -105,11 +105,11 @@ export function APSInput() {
         </Card>
       </div>
 
-      <div className="px-6 mt-6">
+      <div className="px-6 mt-6 md:max-w-2xl md:mx-auto md:mt-10">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="space-y-4 mb-6"
+          className="space-y-4 mb-6 md:grid md:grid-cols-2 md:gap-4 md:space-y-0"
         >
           {subjects.map((subject, index) => (
             <motion.div

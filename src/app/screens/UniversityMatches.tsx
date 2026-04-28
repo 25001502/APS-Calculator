@@ -120,7 +120,7 @@ export function UniversityMatches() {
 
   return (
     <div className="min-h-screen pb-24 md:pt-20 md:pb-10">
-      <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8 sticky top-0 z-10 md:top-16">
+      <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8 sticky top-0 z-10 md:top-16 md:px-16">
         <div className="flex items-center gap-4 mb-6">
           <button onClick={() => navigate("/home")} className="hover:opacity-70" aria-label="Go to home">
             <ArrowLeft size={24} />
@@ -150,7 +150,7 @@ export function UniversityMatches() {
         </div>
       </div>
 
-      <div className="px-6 mt-6">
+      <div className="px-6 mt-6 md:max-w-4xl md:mx-auto">
         {userAPS === 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -169,7 +169,7 @@ export function UniversityMatches() {
           </motion.div>
         )}
 
-        <div className="space-y-4">
+        <div className="space-y-4 md:space-y-0 md:grid md:grid-cols-2 md:gap-4">
           {filteredUniversities.map((uni, index) => {
             const isSaved = savedUniversities.includes(uni.id);
 

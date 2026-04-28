@@ -42,14 +42,14 @@ export function SavedOpportunities() {
 
   return (
     <div className="min-h-screen pb-24 md:pt-20 md:pb-10">
-      <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8">
+      <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8 md:px-16">
         <h1 className="text-3xl mb-2">Saved Opportunities</h1>
         <p className="text-white/80">
           {savedList.length} {savedList.length === 1 ? "university" : "universities"} saved
         </p>
       </div>
 
-      <div className="px-6 mt-6">
+      <div className="px-6 mt-6 md:max-w-4xl md:mx-auto">
         {savedList.length === 0 ? (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -71,7 +71,7 @@ export function SavedOpportunities() {
             </button>
           </motion.div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-4 md:space-y-0 md:grid md:grid-cols-2 md:gap-4">
             {savedList.map((uni, index) => {
               const matchesAPS = userAPS >= uni.minAPS && userAPS <= uni.maxAPS;
 

@@ -33,7 +33,7 @@ export function CompareUniversities() {
 
   return (
     <div className="min-h-screen pb-24 md:pt-20 md:pb-10">
-      <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8 sticky top-0 z-10 md:top-16">
+      <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8 sticky top-0 z-10 md:top-16 md:px-16">
         <div className="flex items-center gap-4">
           <button onClick={() => navigate("/home")} className="hover:opacity-70" aria-label="Go to home">
             <ArrowLeft size={24} />
@@ -42,7 +42,7 @@ export function CompareUniversities() {
         </div>
       </div>
 
-      <div className="px-6 mt-6">
+      <div className="px-6 mt-6 md:max-w-4xl md:mx-auto">
         <div className="grid grid-cols-2 gap-4 mb-6">
           {selectedUniversities.map((uni, index) => (
             <Button

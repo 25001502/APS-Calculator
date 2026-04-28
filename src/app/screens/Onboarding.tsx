@@ -42,7 +42,7 @@ export function Onboarding() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col p-6">
+    <div className="min-h-screen flex flex-col p-6 md:p-16">
       <div className="flex justify-end mb-8">
         <button
           onClick={handleSkip}
@@ -52,7 +52,7 @@ export function Onboarding() {
         </button>
       </div>
 
-      <div className="flex-1 flex flex-col justify-center">
+      <div className="flex-1 flex flex-col justify-center md:max-w-lg md:mx-auto md:w-full">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}

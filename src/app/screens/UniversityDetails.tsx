@@ -180,8 +180,8 @@ export function UniversityDetails() {
   const qualifies = userAPS >= university.minAPS;
 
   return (
-    <div className="min-h-screen pb-8">
-      <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8">
+    <div className="min-h-screen pb-8 md:pt-10">
+      <div className="bg-gradient-to-br from-primary to-secondary/80 text-white px-6 pt-12 pb-8 md:px-16">
         <div className="flex items-center gap-4 mb-6">
           <button onClick={() => navigate(-1)} className="hover:opacity-70" aria-label="Go back">
             <ArrowLeft size={24} />
@@ -228,7 +228,7 @@ export function UniversityDetails() {
         )}
       </div>
 
-      <div className="px-6 mt-6">
+      <div className="px-6 mt-6 md:max-w-3xl md:mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -255,7 +255,7 @@ export function UniversityDetails() {
           className="mb-6"
         >
           <h2 className="text-xl mb-4">Faculties & Programs</h2>
-          <div className="space-y-4">
+          <div className="space-y-4 md:grid md:grid-cols-2 md:gap-4 md:space-y-0">
             {university.faculties.map((faculty, index) => {
               const canQualify = userAPS >= faculty.minAPS;
 
