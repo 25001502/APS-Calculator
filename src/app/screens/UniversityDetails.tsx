@@ -326,7 +326,7 @@ export function UniversityDetails() {
         >
           <Button
             onClick={() => window.open(university.website, "_blank")}
-            variant="primary"
+            variant="success"
             size="lg"
             fullWidth
           >

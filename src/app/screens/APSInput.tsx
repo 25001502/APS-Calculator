@@ -224,7 +224,7 @@ export function APSInput() {
 
         <Button
           onClick={calculateAPS}
-          variant="primary"
+          variant="success"
           size="lg"
           fullWidth
           disabled={!canCalculate}

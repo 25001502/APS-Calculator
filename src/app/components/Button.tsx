@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  variant?: "primary" | "secondary" | "outline" | "ghost";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "success";
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
 }
@@ -23,6 +23,7 @@ export function Button({
     secondary: "bg-secondary text-secondary-foreground hover:opacity-90 active:scale-95",
     outline: "border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground active:scale-95",
     ghost: "text-primary hover:bg-primary/10 active:scale-95",
+    success: "bg-success text-white hover:opacity-90 active:scale-95",
   };
 
   const sizeStyles = {

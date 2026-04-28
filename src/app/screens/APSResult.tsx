@@ -162,7 +162,7 @@ export function APSResult() {
         >
           <Button
             onClick={handleViewMatches}
-            variant="primary"
+            variant="success"
             size="lg"
             fullWidth
           >

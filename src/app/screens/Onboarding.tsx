@@ -101,7 +101,7 @@ export function Onboarding() {
 
         <Button
           onClick={handleNext}
-          variant="primary"
+          variant="success"
           size="lg"
           fullWidth
         >

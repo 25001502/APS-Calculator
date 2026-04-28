@@ -74,10 +74,10 @@ export function Welcome() {
         >
           <Button
             onClick={() => navigate("/onboarding")}
-            variant="secondary"
+            variant="success"
             size="lg"
             fullWidth
-            className="shadow-xl !bg-success !text-white hover:!opacity-90"
+            className="shadow-xl"
           >
             Get Started
           </Button>

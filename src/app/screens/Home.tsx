@@ -175,7 +175,7 @@ export function Home() {
             </p>
             <Button
               onClick={() => navigate("/calculate")}
-              variant="secondary"
+              variant="success"
               fullWidth
             >
               Calculate Now

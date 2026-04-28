@@ -162,7 +162,7 @@ export function UniversityMatches() {
               <p className="text-sm text-muted-foreground mb-4">
                 Get personalized university matches by calculating your Admission Point Score
               </p>
-              <Button onClick={() => navigate("/calculate")} variant="primary">
+              <Button onClick={() => navigate("/calculate")} variant="success">
                 Calculate APS
               </Button>
             </Card>

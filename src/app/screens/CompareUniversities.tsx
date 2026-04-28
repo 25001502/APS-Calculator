@@ -156,7 +156,7 @@ export function CompareUniversities() {
                 <Button
                   key={index}
                   onClick={() => navigate(`/university/${uni.id}`)}
-                  variant="primary"
+                  variant="success"
                 >
                   View Details
                 </Button>
