@@ -9,6 +9,9 @@ import { UniversityDetails } from "./screens/UniversityDetails";
 import { CompareUniversities } from "./screens/CompareUniversities";
 import { SavedOpportunities } from "./screens/SavedOpportunities";
 import { Profile } from "./screens/Profile";
+import { ProgramMatches } from "./screens/ProgramMatches";
+import { APSSimulator } from "./screens/APSSimulator";
+import { ApplicationTracker } from "./screens/ApplicationTracker";
 import { Root } from "./screens/Root";
 
 export const router = createBrowserRouter([
@@ -25,6 +28,9 @@ export const router = createBrowserRouter([
       { path: "university/:id", Component: UniversityDetails },
       { path: "compare", Component: CompareUniversities },
       { path: "saved", Component: SavedOpportunities },
+      { path: "programs", Component: ProgramMatches },
+      { path: "simulator", Component: APSSimulator },
+      { path: "tracker", Component: ApplicationTracker },
       { path: "profile", Component: Profile },
     ],
   },

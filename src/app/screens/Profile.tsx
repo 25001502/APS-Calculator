@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { motion } from "motion/react";
-import { User, Award, School, Bookmark, Settings, ChevronRight, Calculator, TrendingUp } from "lucide-react";
+import { Award, BookOpenCheck, Bookmark, Calculator, ChevronRight, ClipboardList, School, SlidersHorizontal, TrendingUp, User } from "lucide-react";
 import { Card } from "../components/Card";
 import { Badge } from "../components/Badge";
 import { Button } from "../components/Button";
@@ -172,6 +172,51 @@ export function Profile() {
                   <div>
                     <p className="mb-1">Saved Universities</p>
                     <p className="text-sm text-muted-foreground">{savedCount} saved</p>
+                  </div>
+                </div>
+                <ChevronRight size={20} className="text-muted-foreground" />
+              </div>
+            </Card>
+
+            <Card hover onClick={() => navigate("/programs")}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-success/10 rounded-xl flex items-center justify-center">
+                    <BookOpenCheck size={20} className="text-success" />
+                  </div>
+                  <div>
+                    <p className="mb-1">Program Matches</p>
+                    <p className="text-sm text-muted-foreground">Check degrees and subjects</p>
+                  </div>
+                </div>
+                <ChevronRight size={20} className="text-muted-foreground" />
+              </div>
+            </Card>
+
+            <Card hover onClick={() => navigate("/simulator")}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-info/10 rounded-xl flex items-center justify-center">
+                    <SlidersHorizontal size={20} className="text-info" />
+                  </div>
+                  <div>
+                    <p className="mb-1">APS Simulator</p>
+                    <p className="text-sm text-muted-foreground">Preview mark improvements</p>
+                  </div>
+                </div>
+                <ChevronRight size={20} className="text-muted-foreground" />
+              </div>
+            </Card>
+
+            <Card hover onClick={() => navigate("/tracker")}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-warning/10 rounded-xl flex items-center justify-center">
+                    <ClipboardList size={20} className="text-warning" />
+                  </div>
+                  <div>
+                    <p className="mb-1">Application Tracker</p>
+                    <p className="text-sm text-muted-foreground">Track deadlines and status</p>
                   </div>
                 </div>
                 <ChevronRight size={20} className="text-muted-foreground" />

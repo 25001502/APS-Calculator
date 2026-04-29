@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { motion } from "motion/react";
-import { Calculator, School, GitCompare, Info, Search, Sparkles } from "lucide-react";
+import { BookOpenCheck, Calculator, ClipboardList, GitCompare, Info, School, Search, SlidersHorizontal, Sparkles } from "lucide-react";
 import { Card } from "../components/Card";
 import { Button } from "../components/Button";
 import { BottomNav } from "../components/BottomNav";
@@ -27,6 +27,27 @@ const quickActions = [
     description: "Side by side",
     path: "/compare",
     gradient: "from-info to-info/80",
+  },
+  {
+    icon: BookOpenCheck,
+    title: "Programs",
+    description: "Degree matches",
+    path: "/programs",
+    gradient: "from-success to-success/80",
+  },
+  {
+    icon: SlidersHorizontal,
+    title: "Simulator",
+    description: "Test marks",
+    path: "/simulator",
+    gradient: "from-accent to-accent/80",
+  },
+  {
+    icon: ClipboardList,
+    title: "Tracker",
+    description: "Applications",
+    path: "/tracker",
+    gradient: "from-warning to-warning/80",
   },
 ];
 

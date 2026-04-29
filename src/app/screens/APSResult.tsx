@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { motion } from "motion/react";
-import { ArrowLeft, Award, TrendingUp, School, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, Award, BookOpenCheck, CheckCircle2, School, SlidersHorizontal, TrendingUp } from "lucide-react";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { Badge } from "../components/Badge";
@@ -168,6 +168,24 @@ export function APSResult() {
           >
             <School size={20} />
             View University Matches
+          </Button>
+
+          <Button
+            onClick={() => navigate("/programs")}
+            variant="primary"
+            fullWidth
+          >
+            <BookOpenCheck size={20} />
+            View Program Matches
+          </Button>
+
+          <Button
+            onClick={() => navigate("/simulator")}
+            variant="secondary"
+            fullWidth
+          >
+            <SlidersHorizontal size={20} />
+            Simulate Improvements
           </Button>
 
           <Button
