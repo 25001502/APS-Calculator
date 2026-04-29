@@ -55,7 +55,7 @@ export function Profile() {
                 <p className="text-white/80 text-sm mb-1">Current APS Score</p>
                 <p className="text-4xl">{userAPS}</p>
               </div>
-              <Badge variant="success" className="text-base">
+              <Badge variant="success" className="text-base bg-success text-white border-white/15 shadow-lg shadow-primary/20">
                 {getScoreLevel(userAPS)}
               </Badge>
             </div>
