@@ -1,40 +1,22 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { motion } from "motion/react";
-import { ArrowLeft, School, MapPin, X } from "lucide-react";
+import { ArrowLeft, School, X } from "lucide-react";
 import { Card } from "../components/Card";
 import { Button } from "../components/Button";
 import { BottomNav } from "../components/BottomNav";
-
-const universities = [
-  { id: 1, name: "University of Cape Town", location: "Western Cape", minAPS: 35, maxAPS: 42, programs: 4 },
-  { id: 2, name: "University of Pretoria", location: "Gauteng", minAPS: 28, maxAPS: 38, programs: 4 },
-  { id: 3, name: "Stellenbosch University", location: "Western Cape", minAPS: 32, maxAPS: 40, programs: 4 },
-  { id: 4, name: "University of Witwatersrand", location: "Gauteng", minAPS: 30, maxAPS: 40, programs: 4 },
-  { id: 5, name: "Rhodes University", location: "Eastern Cape", minAPS: 26, maxAPS: 35, programs: 4 },
-  { id: 6, name: "University of Johannesburg", location: "Gauteng", minAPS: 24, maxAPS: 36, programs: 4 },
-  { id: 7, name: "University of KwaZulu-Natal", location: "KwaZulu-Natal", minAPS: 26, maxAPS: 38, programs: 4 },
-  { id: 8, name: "North-West University", location: "North West", minAPS: 22, maxAPS: 32, programs: 4 },
-  { id: 9, name: "University of the Free State", location: "Free State", minAPS: 20, maxAPS: 30, programs: 4 },
-  { id: 10, name: "University of the Western Cape", location: "Western Cape", minAPS: 20, maxAPS: 28, programs: 4 },
-  { id: 11, name: "Nelson Mandela University", location: "Eastern Cape", minAPS: 20, maxAPS: 30, programs: 4 },
-  { id: 12, name: "University of Limpopo", location: "Limpopo", minAPS: 18, maxAPS: 26, programs: 4 },
-  { id: 13, name: "Tshwane University of Technology", location: "Gauteng", minAPS: 18, maxAPS: 28, programs: 4 },
-  { id: 14, name: "Cape Peninsula University of Technology", location: "Western Cape", minAPS: 18, maxAPS: 26, programs: 4 },
-  { id: 15, name: "Durban University of Technology", location: "KwaZulu-Natal", minAPS: 18, maxAPS: 26, programs: 4 },
-  { id: 16, name: "Sefako Makgatho Health Sciences University", location: "Gauteng", minAPS: 28, maxAPS: 38, programs: 4 },
-];
+import { universities, type University } from "../data/universities";
 
 export function CompareUniversities() {
   const navigate = useNavigate();
-  const [selectedUniversities, setSelectedUniversities] = useState<typeof universities>([
+  const [selectedUniversities, setSelectedUniversities] = useState<University[]>([
     universities[0],
     universities[1],
   ]);
   const [showSelector, setShowSelector] = useState(false);
   const [selectingIndex, setSelectingIndex] = useState<number>(0);
 
-  const handleSelectUniversity = (uni: typeof universities[0]) => {
+  const handleSelectUniversity = (uni: University) => {
     const updated = [...selectedUniversities];
     updated[selectingIndex] = uni;
     setSelectedUniversities(updated);
@@ -128,7 +110,7 @@ export function CompareUniversities() {
                 />
                 <ComparisonRow
                   label="Available Faculties"
-                  values={selectedUniversities.map((u) => `${u.programs} faculties`)}
+                  values={selectedUniversities.map((u) => `${u.faculties.length} faculties`)}
                 />
               </div>
             </Card>
@@ -141,14 +123,7 @@ export function CompareUniversities() {
                     <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center mb-2">
                       <School size={24} className="text-white" />
                     </div>
-                    <p className="text-sm">
-                      {uni.id === 1 && "Research excellence, International recognition"}
-                      {uni.id === 2 && "Diverse programs, Strong industry ties"}
-                      {uni.id === 3 && "Academic excellence, Beautiful campus"}
-                      {uni.id === 4 && "Research focused, Urban location"}
-                      {uni.id === 5 && "Pharmacy excellence, Intimate campus"}
-                      {uni.id === 6 && "Art & Design, Accessible programs"}
-                    </p>
+                    <p className="text-sm">{uni.keyFeatures}</p>
                   </div>
                 ))}
               </div>

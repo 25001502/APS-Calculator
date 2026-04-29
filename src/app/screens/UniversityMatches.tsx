@@ -6,154 +6,8 @@ import { Card } from "../components/Card";
 import { Badge } from "../components/Badge";
 import { Button } from "../components/Button";
 import { BottomNav } from "../components/BottomNav";
+import { universities } from "../data/universities";
 import { parseStoredInt, parseStoredJSON } from "../utils/storage";
-
-const universities = [
-  {
-    id: 1,
-    name: "University of Cape Town",
-    location: "Cape Town, Western Cape",
-    minAPS: 35,
-    maxAPS: 42,
-    programs: ["Medicine", "Engineering", "Commerce", "Law"],
-    province: "Western Cape",
-  },
-  {
-    id: 2,
-    name: "University of Pretoria",
-    location: "Pretoria, Gauteng",
-    minAPS: 28,
-    maxAPS: 38,
-    programs: ["Engineering", "Veterinary Science", "Education", "Health Sciences"],
-    province: "Gauteng",
-  },
-  {
-    id: 3,
-    name: "Stellenbosch University",
-    location: "Stellenbosch, Western Cape",
-    minAPS: 32,
-    maxAPS: 40,
-    programs: ["Business", "Sciences", "Arts", "Theology"],
-    province: "Western Cape",
-  },
-  {
-    id: 4,
-    name: "University of Witwatersrand",
-    location: "Johannesburg, Gauteng",
-    minAPS: 30,
-    maxAPS: 40,
-    programs: ["Engineering", "Health Sciences", "Humanities", "Commerce"],
-    province: "Gauteng",
-  },
-  {
-    id: 5,
-    name: "Rhodes University",
-    location: "Makhanda, Eastern Cape",
-    minAPS: 26,
-    maxAPS: 35,
-    programs: ["Pharmacy", "Journalism", "Sciences", "Law"],
-    province: "Eastern Cape",
-  },
-  {
-    id: 6,
-    name: "University of Johannesburg",
-    location: "Johannesburg, Gauteng",
-    minAPS: 24,
-    maxAPS: 36,
-    programs: ["Engineering", "Art & Design", "Education", "Law"],
-    province: "Gauteng",
-  },
-  {
-    id: 7,
-    name: "University of KwaZulu-Natal",
-    location: "Durban, KwaZulu-Natal",
-    minAPS: 26,
-    maxAPS: 38,
-    programs: ["Medicine", "Engineering", "Agriculture", "Social Sciences"],
-    province: "KwaZulu-Natal",
-  },
-  {
-    id: 8,
-    name: "North-West University",
-    location: "Potchefstroom, North West",
-    minAPS: 22,
-    maxAPS: 32,
-    programs: ["Education", "Commerce", "Natural Sciences", "Law"],
-    province: "North West",
-  },
-  {
-    id: 9,
-    name: "University of the Free State",
-    location: "Bloemfontein, Free State",
-    minAPS: 20,
-    maxAPS: 30,
-    programs: ["Health Sciences", "Law", "Humanities", "Natural Sciences"],
-    province: "Free State",
-  },
-  {
-    id: 10,
-    name: "University of the Western Cape",
-    location: "Bellville, Western Cape",
-    minAPS: 20,
-    maxAPS: 28,
-    programs: ["Dentistry", "Pharmacy", "Arts", "Community Health"],
-    province: "Western Cape",
-  },
-  {
-    id: 11,
-    name: "Nelson Mandela University",
-    location: "Gqeberha, Eastern Cape",
-    minAPS: 20,
-    maxAPS: 30,
-    programs: ["Engineering", "Business", "Law", "Education"],
-    province: "Eastern Cape",
-  },
-  {
-    id: 12,
-    name: "University of Limpopo",
-    location: "Sovenga, Limpopo",
-    minAPS: 18,
-    maxAPS: 26,
-    programs: ["Health Sciences", "Humanities", "Management Sciences", "Science"],
-    province: "Limpopo",
-  },
-  {
-    id: 13,
-    name: "Tshwane University of Technology",
-    location: "Pretoria, Gauteng",
-    minAPS: 18,
-    maxAPS: 28,
-    programs: ["Engineering", "ICT", "Arts & Design", "Management Sciences"],
-    province: "Gauteng",
-  },
-  {
-    id: 14,
-    name: "Cape Peninsula University of Technology",
-    location: "Cape Town, Western Cape",
-    minAPS: 18,
-    maxAPS: 26,
-    programs: ["Engineering", "Business", "Health Sciences", "Informatics"],
-    province: "Western Cape",
-  },
-  {
-    id: 15,
-    name: "Durban University of Technology",
-    location: "Durban, KwaZulu-Natal",
-    minAPS: 18,
-    maxAPS: 26,
-    programs: ["Engineering", "Health Sciences", "Management", "Arts"],
-    province: "KwaZulu-Natal",
-  },
-  {
-    id: 16,
-    name: "Sefako Makgatho Health Sciences University",
-    location: "Ga-Rankuwa, Gauteng",
-    minAPS: 28,
-    maxAPS: 38,
-    programs: ["Medicine", "Dentistry", "Pharmacy", "Nursing"],
-    province: "Gauteng",
-  },
-];
 
 export function UniversityMatches() {
   const navigate = useNavigate();
@@ -267,6 +121,7 @@ export function UniversityMatches() {
                             toggleSave(uni.id);
                           }}
                           className="p-2 hover:bg-muted rounded-lg transition-colors"
+                          aria-label={isSaved ? `Remove ${uni.name} from saved universities` : `Save ${uni.name}`}
                         >
                           {isSaved ? (
                             <BookmarkCheck size={20} className="text-accent fill-accent" />

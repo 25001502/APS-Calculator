@@ -4,6 +4,7 @@ import { Calculator, School, GitCompare, Info, Search, Sparkles } from "lucide-r
 import { Card } from "../components/Card";
 import { Button } from "../components/Button";
 import { BottomNav } from "../components/BottomNav";
+import { universities } from "../data/universities";
 
 const quickActions = [
   {
@@ -29,12 +30,7 @@ const quickActions = [
   },
 ];
 
-const featuredUniversities = [
-  { id: 1, name: "University of Cape Town", aps: "35-42", province: "Western Cape" },
-  { id: 2, name: "University of Pretoria", aps: "28-38", province: "Gauteng" },
-  { id: 3, name: "Stellenbosch University", aps: "32-40", province: "Western Cape" },
-  { id: 4, name: "University of Witwatersrand", aps: "30-40", province: "Gauteng" },
-];
+const featuredUniversities = universities.slice(0, 4);
 
 export function Home() {
   const navigate = useNavigate();
@@ -151,7 +147,7 @@ export function Home() {
                     <div className="flex-1 min-w-0">
                       <h3 className="truncate mb-1">{uni.name}</h3>
                       <p className="text-sm text-muted-foreground">
-                        APS: {uni.aps} • {uni.province}
+                        APS: {uni.minAPS}-{uni.maxAPS} / {uni.province}
                       </p>
                     </div>
                   </div>

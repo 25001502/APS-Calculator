@@ -5,26 +5,8 @@ import { School, MapPin, Trash2, BookmarkX } from "lucide-react";
 import { Card } from "../components/Card";
 import { Badge } from "../components/Badge";
 import { BottomNav } from "../components/BottomNav";
+import { universities } from "../data/universities";
 import { parseStoredInt, parseStoredJSON } from "../utils/storage";
-
-const universities = [
-  { id: 1, name: "University of Cape Town", location: "Western Cape", minAPS: 35, maxAPS: 42, note: "Best fit" },
-  { id: 2, name: "University of Pretoria", location: "Gauteng", minAPS: 28, maxAPS: 38, note: "Strong programs" },
-  { id: 3, name: "Stellenbosch University", location: "Western Cape", minAPS: 32, maxAPS: 40, note: "Reach option" },
-  { id: 4, name: "University of Witwatersrand", location: "Gauteng", minAPS: 30, maxAPS: 40, note: "Good match" },
-  { id: 5, name: "Rhodes University", location: "Eastern Cape", minAPS: 26, maxAPS: 35, note: "Backup option" },
-  { id: 6, name: "University of Johannesburg", location: "Gauteng", minAPS: 24, maxAPS: 36, note: "Safety school" },
-  { id: 7, name: "University of KwaZulu-Natal", location: "KwaZulu-Natal", minAPS: 26, maxAPS: 38, note: "Strong programs" },
-  { id: 8, name: "North-West University", location: "North West", minAPS: 22, maxAPS: 32, note: "Good match" },
-  { id: 9, name: "University of the Free State", location: "Free State", minAPS: 20, maxAPS: 30, note: "Good match" },
-  { id: 10, name: "University of the Western Cape", location: "Western Cape", minAPS: 20, maxAPS: 28, note: "Backup option" },
-  { id: 11, name: "Nelson Mandela University", location: "Eastern Cape", minAPS: 20, maxAPS: 30, note: "Good match" },
-  { id: 12, name: "University of Limpopo", location: "Limpopo", minAPS: 18, maxAPS: 26, note: "Safety school" },
-  { id: 13, name: "Tshwane University of Technology", location: "Gauteng", minAPS: 18, maxAPS: 28, note: "Backup option" },
-  { id: 14, name: "Cape Peninsula University of Technology", location: "Western Cape", minAPS: 18, maxAPS: 26, note: "Backup option" },
-  { id: 15, name: "Durban University of Technology", location: "KwaZulu-Natal", minAPS: 18, maxAPS: 26, note: "Backup option" },
-  { id: 16, name: "Sefako Makgatho Health Sciences University", location: "Gauteng", minAPS: 28, maxAPS: 38, note: "Strong programs" },
-];
 
 export function SavedOpportunities() {
   const navigate = useNavigate();
@@ -45,7 +27,7 @@ export function SavedOpportunities() {
   const savedList = universities.filter((u) => savedUniversities.includes(u.id));
 
   const getNoteVariant = (note: string) => {
-    if (note.includes("Best") || note.includes("Good")) return "success";
+    if (note.includes("Best") || note.includes("Good") || note.includes("Strong")) return "success";
     if (note.includes("Reach")) return "warning";
     return "info";
   };
@@ -83,7 +65,7 @@ export function SavedOpportunities() {
         ) : (
           <div className="space-y-4 md:space-y-0 md:grid md:grid-cols-2 md:gap-4">
             {savedList.map((uni, index) => {
-              const matchesAPS = userAPS >= uni.minAPS && userAPS <= uni.maxAPS;
+              const matchesAPS = userAPS >= uni.minAPS;
 
               return (
                 <motion.div
