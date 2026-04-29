@@ -56,17 +56,35 @@ export function APSInput() {
   };
 
   const calculateAPS = () => {
-    const filledSubjects = subjects.filter((s) => s.name && s.mark);
-    if (filledSubjects.length >= 6) {
-      const apsData = filledSubjects.map((s) => ({
+    const validSubjects = subjects.flatMap((s) => {
+      const mark = getValidMark(s.mark);
+      return s.name && mark !== null ? [{ name: s.name, mark }] : [];
+    });
+
+    if (validSubjects.length >= 6) {
+      const apsData = validSubjects.map((s) => ({
         name: s.name,
-        mark: parseInt(s.mark),
-        points: getAPSPoints(parseInt(s.mark)),
+        mark: s.mark,
+        points: getAPSPoints(s.mark),
       }));
 
       localStorage.setItem("apsData", JSON.stringify(apsData));
       navigate("/result");
     }
+  };
+
+  const getValidMark = (mark: string): number | null => {
+    if (mark.trim() === "") {
+      return null;
+    }
+
+    const parsed = Number(mark);
+
+    if (!Number.isFinite(parsed) || parsed < 0 || parsed > 100) {
+      return null;
+    }
+
+    return parsed;
   };
 
   const getAPSPoints = (mark: number): number => {
@@ -79,7 +97,7 @@ export function APSInput() {
     return 1;
   };
 
-  const canCalculate = subjects.filter((s) => s.name && s.mark && parseInt(s.mark) >= 0 && parseInt(s.mark) <= 100).length >= 6;
+  const canCalculate = subjects.filter((s) => s.name && s.mark && getValidMark(s.mark) !== null).length >= 6;
 
   return (
     <div className="min-h-screen pb-8 md:pt-10">
@@ -111,69 +129,73 @@ export function APSInput() {
           animate={{ opacity: 1 }}
           className="space-y-4 mb-6 md:grid md:grid-cols-2 md:gap-4 md:space-y-0"
         >
-          {subjects.map((subject, index) => (
-            <motion.div
-              key={subject.id}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.05 }}
-            >
-              <Card>
-                <div className="flex items-start gap-3">
-                  <div className="flex-1 space-y-3">
-                    <div>
-                      <label htmlFor={`subject-${subject.id}`} className="block text-sm mb-2 text-foreground/80">
-                        Subject {index + 1}
-                      </label>
-                      <select
-                        id={`subject-${subject.id}`}
-                        aria-label={`Select subject ${index + 1}`}
-                        value={subject.name}
-                        onChange={(e) => updateSubject(subject.id, "name", e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-input-background border border-border focus:outline-none focus:ring-2 focus:ring-primary/50"
-                      >
-                        <option value="">Select subject</option>
-                        {availableSubjects.map((subj) => (
-                          <option key={subj} value={subj}>
-                            {subj}
-                          </option>
-                        ))}
-                      </select>
+          {subjects.map((subject, index) => {
+            const validMark = getValidMark(subject.mark);
+
+            return (
+              <motion.div
+                key={subject.id}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.05 }}
+              >
+                <Card>
+                  <div className="flex items-start gap-3">
+                    <div className="flex-1 space-y-3">
+                      <div>
+                        <label htmlFor={`subject-${subject.id}`} className="block text-sm mb-2 text-foreground/80">
+                          Subject {index + 1}
+                        </label>
+                        <select
+                          id={`subject-${subject.id}`}
+                          aria-label={`Select subject ${index + 1}`}
+                          value={subject.name}
+                          onChange={(e) => updateSubject(subject.id, "name", e.target.value)}
+                          className="w-full px-4 py-3 rounded-xl bg-input-background border border-border focus:outline-none focus:ring-2 focus:ring-primary/50"
+                        >
+                          <option value="">Select subject</option>
+                          {availableSubjects.map((subj) => (
+                            <option key={subj} value={subj}>
+                              {subj}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <Input
+                        label="Mark (%)"
+                        type="number"
+                        min="0"
+                        max="100"
+                        placeholder="0-100"
+                        value={subject.mark}
+                        onChange={(e) => updateSubject(subject.id, "mark", e.target.value)}
+                      />
+
+                      {subject.mark && validMark !== null && (
+                        <div className="flex items-center gap-2 text-sm">
+                          <span className="text-muted-foreground">APS Points:</span>
+                          <span className="px-3 py-1 bg-secondary/10 text-secondary rounded-full">
+                            {getAPSPoints(validMark)}
+                          </span>
+                        </div>
+                      )}
                     </div>
 
-                    <Input
-                      label="Mark (%)"
-                      type="number"
-                      min="0"
-                      max="100"
-                      placeholder="0-100"
-                      value={subject.mark}
-                      onChange={(e) => updateSubject(subject.id, "mark", e.target.value)}
-                    />
-
-                    {subject.mark && parseInt(subject.mark) >= 0 && parseInt(subject.mark) <= 100 && (
-                      <div className="flex items-center gap-2 text-sm">
-                        <span className="text-muted-foreground">APS Points:</span>
-                        <span className="px-3 py-1 bg-secondary/10 text-secondary rounded-full">
-                          {getAPSPoints(parseInt(subject.mark))}
-                        </span>
-                      </div>
+                    {subjects.length > 1 && (
+                      <button
+                        onClick={() => removeSubject(subject.id)}
+                        className="mt-8 p-2 hover:bg-destructive/10 text-destructive rounded-lg transition-colors"
+                        aria-label={`Remove subject ${index + 1}`}
+                      >
+                        <Trash2 size={20} />
+                      </button>
                     )}
                   </div>
-
-                  {subjects.length > 1 && (
-                    <button
-                      onClick={() => removeSubject(subject.id)}
-                      className="mt-8 p-2 hover:bg-destructive/10 text-destructive rounded-lg transition-colors"
-                      aria-label={`Remove subject ${index + 1}`}
-                    >
-                      <Trash2 size={20} />
-                    </button>
-                  )}
-                </div>
-              </Card>
-            </motion.div>
-          ))}
+                </Card>
+              </motion.div>
+            );
+          })}
         </motion.div>
 
         {subjects.length < 7 && (
